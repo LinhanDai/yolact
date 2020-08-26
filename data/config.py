@@ -109,23 +109,23 @@ dataset_base = Config({
     'name': 'Base Dataset',
 
     # Training images and annotations
-    'train_images': '/home/linhan/COCO/images/',
-    'train_info':   'path_to_annotation_file',
+    'train_images': '/home/linhan/tz_dataset_coco/',
+    'train_info':   '/home/linhan/tz_dataset_coco/annotations.json',
 
     # Validation images and annotations.
-    'valid_images': '/home/linhan/COCO/images/',
-    'valid_info':   'path_to_annotation_file',
+    'valid_images': '/home/linhan/tz_dataset_coco/',
+    'valid_info':   '/home/linhan/tz_dataset_coco/annotations.json',
 
     # Whether or not to load GT. If this is False, eval.py quantitative evaluation won't work.
     'has_gt': True,
 
     # A list of names for each of you classes.
-    'class_names': COCO_CLASSES,
+    'class_names': ('car', 'bikeperson', 'person'),
 
     # COCO class ids aren't sequential, so this is a bandage fix. If your ids aren't sequential,
     # provide a map from category_id -> index in class_names + 1 (the +1 is there because it's 1-indexed).
     # If not specified, this just assumes category ids start at 1 and increase sequentially.
-    'label_map': None
+    'label_map': {1: 1, 2: 2, 3: 3}
 })
 
 coco2014_dataset = dataset_base.copy({
@@ -421,7 +421,7 @@ coco_base_config = Config({
     'max_iter': 400000,
 
     # The maximum number of detections for evaluation
-    'max_num_detections': 100,
+    'max_num_detections': 40,
 
     # dw' = momentum * dw - lr * (grad + decay * w)
     'lr': 1e-3,
@@ -456,7 +456,7 @@ coco_base_config = Config({
     # See mask_type for details.
     'mask_type': mask_type.direct,
     'mask_size': 16,
-    'masks_to_train': 100,
+    'masks_to_train': 40,
     'mask_proto_src': None,
     'mask_proto_net': [(256, 3, {}), (256, 3, {})],
     'mask_proto_bias': False,
@@ -657,8 +657,8 @@ yolact_base_config = coco_base_config.copy({
     'name': 'yolact_base',
 
     # Dataset stuff
-    'dataset': coco2017_dataset,
-    'num_classes': len(coco2017_dataset.class_names) + 1,
+    'dataset': dataset_base,
+    'num_classes': 4,
 
     # Image Size
     'max_size': 550,

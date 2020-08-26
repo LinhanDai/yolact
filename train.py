@@ -38,7 +38,7 @@ parser.add_argument('--resume', default=None, type=str,
 parser.add_argument('--start_iter', default=-1, type=int,
                     help='Resume training at this iter. If this is -1, the iteration will be'\
                          'determined from the file name.')
-parser.add_argument('--num_workers', default=4, type=int,
+parser.add_argument('--num_workers', default=1, type=int,
                     help='Number of workers used in dataloading')
 parser.add_argument('--cuda', default=True, type=str2bool,
                     help='Use CUDA to train model')
@@ -56,11 +56,11 @@ parser.add_argument('--log_folder', default='logs/',
                     help='Directory for saving logs.')
 parser.add_argument('--config', default=None,
                     help='The config object to use.')
-parser.add_argument('--save_interval', default=10000, type=int,
+parser.add_argument('--save_interval', default=500, type=int,
                     help='The number of iterations between saving the model.')
-parser.add_argument('--validation_size', default=5000, type=int,
+parser.add_argument('--validation_size', default=500, type=int,
                     help='The number of images to use for validation.')
-parser.add_argument('--validation_epoch', default=2, type=int,
+parser.add_argument('--validation_epoch', default=200, type=int,
                     help='Output validation information every n iterations. If -1, do no validation.')
 parser.add_argument('--keep_latest', dest='keep_latest', action='store_true',
                     help='Only keep the latest checkpoint instead of each one.')
