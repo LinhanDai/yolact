@@ -661,7 +661,7 @@ yolact_base_config = coco_base_config.copy({
     'num_classes': 4,
 
     # Image Size
-    'max_size': 300,
+    'max_size': 550,
     
     # Training params
     'lr_steps': (280000, 600000, 700000, 750000),
@@ -807,7 +807,7 @@ yolact_plus_resnet50_config = yolact_plus_base_config.copy({
 
 
 # Default config
-cfg = yolact_base_config.copy()
+cfg = yolact_resnet50_config.copy()
 
 def set_cfg(config_name:str):
     """ Sets the active config. Works even if cfg is already imported! """
@@ -823,4 +823,3 @@ def set_cfg(config_name:str):
 def set_dataset(dataset_name:str):
     """ Sets the dataset of the current config. """
     cfg.dataset = eval(dataset_name)
-    
