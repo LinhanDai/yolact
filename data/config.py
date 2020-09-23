@@ -260,6 +260,14 @@ resnet50_backbone = resnet101_backbone.copy({
     'transform': resnet_transform,
 })
 
+resnet18_backbone = resnet101_backbone.copy({
+    'name': 'ResNet18',
+    'path': 'resnet18-5c106cde.pth',
+    'type': ResNetBackbone,
+    'args': ([2, 2, 2, 2],),
+    'transform': resnet_transform,
+})
+
 resnet50_dcnv2_backbone = resnet50_backbone.copy({
     'name': 'ResNet50_DCNv2',
     'args': ([3, 4, 6, 3], [0, 4, 6, 3]),
@@ -661,7 +669,7 @@ yolact_base_config = coco_base_config.copy({
     'num_classes': 4,
 
     # Image Size
-    'max_size': 400,
+    'max_size': 450,
     
     # Training params
     'lr_steps': (280000, 600000, 700000, 750000),
@@ -736,6 +744,20 @@ yolact_darknet53_config = yolact_base_config.copy({
     }),
 })
 
+yolact_resnet18_config = yolact_base_config.copy({
+    'name': 'yolact_resnet18',
+
+    'backbone': resnet18_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+
+        'pred_scales': yolact_base_config.backbone.pred_scales,
+        'pred_aspect_ratios': yolact_base_config.backbone.pred_aspect_ratios,
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': True,  # This is for backward compatability with a bug
+    }),
+})
+
 yolact_resnet50_config = yolact_base_config.copy({
     'name': 'yolact_resnet50',
 
@@ -807,7 +829,7 @@ yolact_plus_resnet50_config = yolact_plus_base_config.copy({
 
 
 # Default config
-cfg = yolact_resnet50_config.copy()
+cfg = yolact_resnet18_config.copy()
 
 def set_cfg(config_name:str):
     """ Sets the active config. Works even if cfg is already imported! """
